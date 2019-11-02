@@ -1,0 +1,77 @@
+const int AIN1 = 13;
+const int AIN2 = 12;            //control pin 2 on the motor driver for the right motor
+const int PWMA = 11;            //speed control pin on the motor driver for the right motor
+const byte ledPin = 13; //Built in LED on pin 13
+const byte interruptPin = 2; //pushbutton on interrupt using pin 2
+volatile byte state = LOW;
+int switchPin = 2;
+//VARIABLES
+int motorSpeed = 0;       //starting speed for the motor
+void setup() {
+  pinMode(switchPin, INPUT_PULLUP);   //set this as a pullup to sense whether the switch is flipped
+  //set the motor contro pins as outputs
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(PWMA, OUTPUT);
+  Serial.begin(9600);                       //begin serial communication with the computer
+  Serial.println("Enter motor speed (0-255)... ");
+  pinMode(ledPin, OUTPUT);
+pinMode(interruptPin, INPUT_PULLUP);//set interrupt pin to input via pullup resistor
+attachInterrupt(digitalPinToInterrupt(interruptPin), blink, CHANGE);
+}
+void loop() { 
+  if (Serial.available() > 0){
+    motorSpeed = Serial.parseInt();
+message 
+    Serial.print("Motor Speed: ");
+    Serial.println(motorSpeed);
+    digitalWrite(ledPin, state);
+} 
+  //if the user has entered something in the serial monitor
+  //set the motor speed equal to the number in the serial
+  //print the speed that the motor is set to run at
+  //if the switch is on...
+  //if the switch is off...
+//turn the motor off
+if(digitalRead(2) == LOW){
+    spinMotor(motorSpeed);
+} else{
+    spinMotor(0);
+} 
+} 
+void blink() { //function called by ISR
+state = !state;
+}
+/********************************************************************************/
+void spinMotor(int motorSpeed)
+{
+  if (motorSpeed > 0)
+(positive speed)
+{ 
+} 
+//function for driving the right motor
+ //if the motor should drive forward
+ //set pin 1 to high
+ //set pin 2 to low
+ //if the motor should drive backwar
+ //set pin 1 to low
+ //set pin 2 to high
+ //if the motor should stop
+ //set pin 1 to low
+ //set pin 2 to low
+ //now that the motor direction is set, drive
+digitalWrite(AIN1, HIGH);
+digitalWrite(AIN2, LOW);
+  else if (motorSpeed < 0)
+(negative speed)
+{ 
+} else { 
+    digitalWrite(AIN1, LOW);
+    digitalWrite(AIN2, LOW);
+} 
+digitalWrite(AIN1, LOW);
+digitalWrite(AIN2, HIGH);
+  analogWrite(PWMA, abs(motorSpeed));
+it at the entered speed
+}
+
